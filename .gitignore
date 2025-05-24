@@ -1,0 +1,60 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+firebase-debug.log*
+firebase-debug.*.log*
+
+# Firebase cache and local files
+.firebase/
+.firebase/
+
+# Firebase sensitive config files
+firebaseConfig.js
+privateKey.json
+
+# Uncomment this if you'd like others to create their own Firebase project.
+# For a team working on the same Firebase project(s), it is recommended to leave
+# it commented so all members can deploy to the same project(s) in .firebaserc.
+# .firebaserc
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage and build
+coverage/
+build/
+dist/
+
+# Dependency directories
+node_modules/
+
+# Output of 'npm pack'
+*.tgz
+
+# dotenv environment variables file
+.env
+
+# eslint cache
+.eslintcache
+
+# Optional npm cache directory
+.npm
+
+# REPL history
+.node_repl_history
+
+# Bower dependency directory (if used)
+bower_components/
+
+# VS Code workspace settings
+.vscode/
+
+# Misc
+.DS_Store
+Thumbs.db

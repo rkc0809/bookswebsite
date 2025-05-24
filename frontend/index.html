@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Book Hub</title>
+  <link rel="stylesheet" href="./css/style.css" />
+  <script src="/frontend/js/nav.js" defer></script>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">Logo</div>
+    <div class="spacing">
+      <ul class="nav-links">
+        <li class="nav-item active"><a href="index.html">Home</a></li>
+        <li class="nav-item"><a href="dashboard.html">Dashboard</a></li>
+        <li class="nav-item"><a href="saved.html">Saved Books</a></li>
+        <div class="nav-actions">
+          <input type="text" placeholder="Search..." />
+          <div class="profile-icon">👤</div>
+          <span class="nav-underline"></span>
+        </div>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Posts Container (Dynamic posts will be injected here) -->
+  <div id="postsContainer"></div>
+
+  <!-- Main Script to Load Posts -->
+  <script src="./js/script.js"></script>
+  <!-- Add PDF.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+
+</body>
+</html>
