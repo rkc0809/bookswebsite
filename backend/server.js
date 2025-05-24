@@ -15,6 +15,7 @@ const app = express();
 // Support for __dirname in ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors());
@@ -42,6 +43,6 @@ mongoose.connect(process.env.MONGO_URI, {
 app.use('/api/posts', postRoutes);
 
 // Start the server
-app.listen(5000, () => {
-  console.log("🚀 Server running on http://localhost:5000");
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`🚀 Server running on http://0.0.0.0:${PORT}`);
 });
