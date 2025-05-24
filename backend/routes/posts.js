@@ -3,7 +3,7 @@ import express from 'express';
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
-import Post from '../models/Post.js';
+import Post from '../models/post.js';
 
 const router = express.Router();
 
