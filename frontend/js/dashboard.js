@@ -32,7 +32,7 @@ onAuthStateChanged(auth, user => {
     formData.append('pdf', file); // key must match backend's multer.single("pdf")
 
     try {
-      const response = await fetch('https://bookswebsite.onrender.com/api/posts', {
+      const response = await fetch('https://bookswebsite-backend.onrender.com/api/posts', {
         method: 'POST',
         body: formData // do not set Content-Type manually
       });
