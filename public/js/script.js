@@ -1,5 +1,6 @@
 window.onload = function () {
-  fetch('https://bookswebsite.onrender.com/api/posts')
+ fetch('https://bookswebsite-backend.onrender.com/api/posts')
+
 
     .then(response => response.json())
     .then(posts => {
@@ -57,7 +58,8 @@ function displayPosts(posts) {
     postsContainer.appendChild(postDiv);
 
     // Render first page of PDF into book-slider
-    renderPDF(`https://bookswebsite.onrender.com/api/posts${post.pdfUrl}`, sliderId);
+   renderPDF(`https://bookswebsite-backend.onrender.com${post.pdfUrl}`, sliderId); // ✅ correct
+
   });
 }
 
