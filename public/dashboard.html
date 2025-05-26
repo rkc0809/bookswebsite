@@ -1,0 +1,20 @@
+<!-- frontend/dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <script type="module" src="js/dashboard.js" defer></script>
+</head>
+<body>
+  <h2>Upload Your Book</h2>
+  <form id="uploadForm" enctype="multipart/form-data">
+    <input type="text" id="title" placeholder="Book Title" required /><br />
+    <textarea id="caption" placeholder="Write a caption..." required></textarea><br />
+    <input type="file" id="pdfFile" accept="application/pdf" required /><br />
+    <button type="submit">Upload</button>
+  </form>
+  <div id="status"></div>
+</body>
+</html>
