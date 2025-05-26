@@ -8,7 +8,8 @@ import { fileURLToPath } from 'url';
 import postRoutes from './routes/posts.js'; // ✅ Ensure this file exists
 
 // Load environment variables
-dotenv.config();
+//dotenv.config();
+require('dotenv').config();
 
 const app = express();
 
@@ -16,6 +17,8 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const PORT = process.env.PORT || 5000;
+
+
 
 // Middleware
 app.use(cors({

@@ -1,60 +1,51 @@
-// backend/routes/posts.js
-import express from 'express';
-import multer from 'multer';
-import path from 'path';
-import fs from 'fs';
-import Post from '../models/post.js';
-
+const express = require('express');
 const router = express.Router();
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
+const cloudinary = require('../cloud'); // your cloud.js file
+const Post = require('../models/post'); // your MongoDB Post model
 
-// Ensure uploads directory exists
-const uploadDir = path.join('uploads');
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir);
-}
-
-// Multer storage config
+// Set up Multer storage
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'uploads/'); // Save to uploads/ folder
+    cb(null, 'uploads/'); // Make sure 'uploads/' folder exists
   },
   filename: function (req, file, cb) {
-    const ext = path.extname(file.originalname);
-    cb(null, `${Date.now()}-${file.originalname}`);
-  }
+    cb(null, Date.now() + path.extname(file.originalname));
+  },
 });
 
-const upload = multer({ storage });
+const upload = multer({ storage: storage });
 
-// ✅ POST route to upload post with PDF
-router.post("/", upload.single("pdf"), async (req, res) => {
+router.post('/', upload.single('pdf'), async (req, res) => {
   try {
-    if (!req.file) {
-      throw new Error("PDF file not provided");
-    }
-
     const { title, caption, username } = req.body;
+    const filePath = req.file.path;
 
-    const pdfUrl = `/uploads/${req.file.filename}`;
-    const post = new Post({ title, caption, username, pdfUrl });
-    await post.save();
+    // ✅ Upload to Cloudinary
+    const result = await cloudinary.uploader.upload(filePath, {
+      resource_type: 'auto',
+    });
 
-    res.status(201).json({ message: "Post uploaded", post });
+    // Delete local file after upload
+    fs.unlinkSync(filePath);
+
+    // ✅ Save to MongoDB
+    const newPost = new Post({
+      title,
+      caption,
+      username,
+      pdfUrl: result.secure_url, // Store Cloudinary URL
+    });
+
+    await newPost.save();
+
+    res.status(201).json({ message: 'Post uploaded successfully', post: newPost });
   } catch (err) {
-    console.error("❌ Upload Error:", err); // 👈 log full error
-    res.status(500).json({ message: err.message });
+    console.error(err);
+    res.status(500).json({ message: 'Something went wrong uploading post' });
   }
 });
 
-// ✅ GET route to retrieve posts
-router.get("/", async (req, res) => {
-  try {
-    const posts = await Post.find().sort({ createdAt: -1 });
-    res.json(posts);
-  } catch (err) {
-    console.error("❌ Fetch Error:", err);
-    res.status(500).json({ message: "Failed to fetch posts" });
-  }
-});
-
-export default router;
+module.exports = router;
