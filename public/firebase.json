@@ -5,7 +5,7 @@
     "indexes": "base}/documents {"
   },
   "hosting": {
-    "public": "frontend",
+    "public": "public",
     "ignore": [
       "firebase.json",
       "**/.*",
