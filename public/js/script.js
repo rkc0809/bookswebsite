@@ -1,7 +1,5 @@
 window.onload = function () {
- fetch('https://bookswebsite-backend.onrender.com/api/posts')
-
-
+  fetch('https://bookswebsite-backend.onrender.com/api/posts')
     .then(response => response.json())
     .then(posts => {
       console.log(posts);
@@ -12,11 +10,10 @@ window.onload = function () {
     });
 };
 
-// Load pdf.js library from CDN
-const pdfjsLib = window['pdfjs-dist/build/pdf'];
+// Initialize PDF.js worker
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
 
-// Function to render posts on the webpage
+// Function to render posts
 function displayPosts(posts) {
   const postsContainer = document.getElementById('postsContainer');
 
@@ -25,7 +22,7 @@ function displayPosts(posts) {
     postDiv.classList.add('post-card');
 
     const sliderId = `bookSlider-${post._id}`;
-    postDiv.dataset.zoom = "1"; // default zoom
+    postDiv.dataset.zoom = "1";
 
     postDiv.innerHTML = `
       <div class="post-header">
@@ -57,19 +54,18 @@ function displayPosts(posts) {
 
     postsContainer.appendChild(postDiv);
 
-    // Render first page of PDF into book-slider
-   renderPDF(`https://bookswebsite-backend.onrender.com${post.pdfUrl}`, sliderId); // ✅ correct
-
+    // Render PDF
+    renderPDF(`https://bookswebsite-backend.onrender.com${post.pdfUrl}`, sliderId);
   });
 }
 
-// PDF rendering function
+// PDF Rendering
 async function renderPDF(pdfUrl, containerId) {
   const container = document.getElementById(containerId);
 
   try {
     const pdf = await pdfjsLib.getDocument(pdfUrl).promise;
-    const page = await pdf.getPage(1); // Only render first page for now
+    const page = await pdf.getPage(1);
 
     const canvas = document.createElement('canvas');
     const context = canvas.getContext('2d');
@@ -78,7 +74,7 @@ async function renderPDF(pdfUrl, containerId) {
     canvas.height = viewport.height;
     canvas.width = viewport.width;
 
-    await page.render({ canvasContext: context, viewport: viewport }).promise;
+    await page.render({ canvasContext: context, viewport }).promise;
 
     const pageDiv = document.createElement('div');
     pageDiv.className = "book-page";
@@ -90,7 +86,7 @@ async function renderPDF(pdfUrl, containerId) {
   }
 }
 
-// Zoom functions
+// Zoom Functions
 function zoomIn(sliderId) {
   const slider = document.getElementById(sliderId);
   if (!slider) return;

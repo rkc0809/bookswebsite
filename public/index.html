@@ -4,7 +4,10 @@
   <meta charset="UTF-8" />
   <title>Book Hub</title>
   <link rel="stylesheet" href="./css/style.css" />
-  <script src="/public/js/nav.js" defer></script>
+  <!-- Load PDF.js before script.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+  <script src="./js/nav.js" defer></script>
+  <script src="./js/script.js" defer></script>
 </head>
 <body>
   <!-- Navbar -->
@@ -24,13 +27,7 @@
     </div>
   </nav>
 
-  <!-- Posts Container (Dynamic posts will be injected here) -->
+  <!-- Posts Container -->
   <div id="postsContainer"></div>
-
-  <!-- Main Script to Load Posts -->
-  <script src="./js/script.js"></script>
-  <!-- Add PDF.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
-
 </body>
 </html>
