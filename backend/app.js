@@ -1,30 +1,27 @@
-import path from 'path';
+const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const { admin } = require('./firebaseConfig');
+const postsRoute = require('./routes/posts'); // ✅ Import posts route
+
 const app = express();
-const routes = require('./routes');
+dotenv.config();
 
-app.use('/api', routes); // Prefix all routes with /api
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
-dotenv.config(); // To use environment variables
-
-//A Middleware
 app.use(express.json());
 app.use(cors());
 
-// MongoDB connection
-mongoose.connect(process.env.MONGO_URI,).then(() => {
-  console.log('Connected to MongoDB');
-}).catch((error) => {
-  console.error('Error connecting to MongoDB:', error);
-});
+// Use /api/posts instead of general /api
+app.use('/api/posts', postsRoute); // ✅ This is now the correct route
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Routes will be added here later
+// Connect to MongoDB
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log('✅ Connected to MongoDB'))
+  .catch((err) => console.error('❌ MongoDB Error:', err));
 
-app.listen(5000, () => {
-  console.log('Server is running on port 5000');
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
 });
