@@ -1,7 +1,7 @@
 {
   "name": "bookswebsite",
   "version": "1.0.0",
-  "main": "app.js",
+  "main": "backend/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
@@ -19,6 +19,5 @@
     "mongodb": "^6.16.0",
     "mongoose": "^8.15.0",
     "multer": "^2.0.0"
-  },
-  "type": "module"
+  }
 }

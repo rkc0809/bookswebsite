@@ -8,6 +8,14 @@
   <script type="module" src="js/dashboard.js" defer></script>
 </head>
 <body>
+  <form id="uploadForm" enctype="multipart/form-data">
+  <input type="text" id="caption" placeholder="Enter caption" required />
+  <input type="file" id="pdfFile" accept=".pdf" required />
+  <button type="submit">Upload</button>
+</form>
+
+<div id="uploadStatus"></div>
+
   <h2>Upload Your Book</h2>
   <form id="uploadForm" enctype="multipart/form-data">
     <input type="text" id="title" placeholder="Book Title" required /><br />

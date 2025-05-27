@@ -67,23 +67,27 @@ body {
   margin-left: 10rem;
 }
 
+/* Post Container */
+#postsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1rem;
+}
+
 /* Post Card */
 .post-card {
-  background: white;
+  background: #fff;
   border: 1px solid #ddd;
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 1rem;
   margin: 1rem auto;
   max-width: 800px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  height: auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.post-header .username {
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-  display: block;
-}
+/* Post Header */
+.post-header .username,
 .post-header .book-name {
   font-weight: bold;
   margin-bottom: 0.5rem;
@@ -122,6 +126,9 @@ body {
 }
 
 .book-page {
+  margin: 10px 0;
+  display: flex;
+  justify-content: center;
   min-width: 100%;
   scroll-snap-align: start;
   border-radius: 8px;
@@ -133,6 +140,19 @@ body {
   width: 100%;
   height: auto;
   display: block;
+}
+
+/* PDF Canvas Slides */
+.pdf-slides {
+  overflow-x: auto;
+  display: flex;
+  gap: 1rem;
+  padding-top: 1rem;
+}
+
+.pdf-slides canvas {
+  border: 1px solid #ddd;
+  border-radius: 6px;
 }
 
 /* Post Actions */

@@ -1,14 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Book Hub</title>
-  <link rel="stylesheet" href="./css/style.css" />
-  <!-- Load PDF.js before script.js -->
+
+  <!-- Link to CSS -->
+  <link rel="stylesheet" href="./css/style.css">
+
+  <!-- Load PDF.js (Ensure this is before your custom JS files) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+
+  <!-- Your JavaScript files -->
   <script src="./js/nav.js" defer></script>
-  <script src="./js/script.js" defer></script>
+  <script src="./js/script.js" defer></script> <!-- Adjusted to reflect public folder structure -->
+
 </head>
+
 <body>
   <!-- Navbar -->
   <nav class="navbar">
@@ -27,7 +36,22 @@
     </div>
   </nav>
 
-  <!-- Posts Container -->
-  <div id="postsContainer"></div>
+  <!-- Main Content -->
+  <div class="container">
+    <h1>Welcome to Book Hub</h1>
+    <p>Explore books, share your thoughts, and more!</p>
+
+    <!-- Posts Section -->
+    <div id="postsContainer">
+      <!-- Dynamic posts will be injected here -->
+    </div>
+  </div>
+
+  <!-- Initialize PDF.js worker in your script.js file -->
+  <script>
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+  </script>
+
 </body>
+
 </html>

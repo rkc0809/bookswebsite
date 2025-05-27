@@ -1,12 +1,11 @@
-// backend/models/Post.js
-import mongoose from 'mongoose';
+// backend/models/post.js
+const mongoose = require('mongoose');
 
 const postSchema = new mongoose.Schema({
   title: String,
   caption: String,
   username: String,
   pdfUrl: String,
-  createdAt: { type: Date, default: Date.now }
-});
+}, { timestamps: true });
 
-export default mongoose.model("Post", postSchema);
+module.exports = mongoose.model('Post', postSchema);

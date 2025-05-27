@@ -12,7 +12,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 dotenv.config(); // To use environment variables
 
-// Middleware
+//A Middleware
 app.use(express.json());
 app.use(cors());
 
