@@ -1,48 +1,59 @@
 // dashboard.js
-import { auth } from './firebaseConfig.js'; // Import Firebase auth
+import { auth } from './firebaseConfig.js';
 
-document.getElementById('uploadForm').addEventListener('submit', async (e) => {
-  e.preventDefault();
+document.addEventListener('DOMContentLoaded', () => {
+  const uploadForm = document.getElementById('uploadForm');
+  const uploadStatus = document.getElementById('uploadStatus');
 
-  // Check if the user is logged in
-  const user = auth.currentUser;
-  
-  if (!user) {
-    alert('Please log in to upload a post.');
-    return;
-  }
+  uploadForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-  const caption = document.getElementById('caption').value;
-  const pdfFile = document.getElementById('pdfFile').files[0];
-
-  if (!pdfFile) {
-    alert('Please select a PDF file');
-    return;
-  }
-
-  const username = user.displayName || user.email || 'Anonymous';
-  const formData = new FormData();
-  formData.append('caption', caption);
-  formData.append('username', username);
-  formData.append('pdf', pdfFile);  // Ensure 'pdf' matches the backend multer key
-
-  try {
-    const res = await fetch('https://bookswebsite-backend.onrender.com/api/posts', {
-      method: 'POST',
-      body: formData,
-    });
-
-    const data = await res.json();
-
-    if (res.ok) {
-      document.getElementById('uploadStatus').innerText = '✅ Upload successful!';
-      console.log('Post saved:', data.post);
-      // Optionally: refresh posts feed
-    } else {
-      document.getElementById('uploadStatus').innerText = `❌ Error: ${data.error || data.message}`;
+    const user = auth.currentUser;
+    if (!user) {
+      alert('Please log in to upload a post.');
+      return;
     }
-  } catch (error) {
-    console.error('Upload failed:', error);
-    document.getElementById('uploadStatus').innerText = '❌ Upload failed.';
-  }
+
+    const title = document.getElementById('title').value.trim();
+    const caption = document.getElementById('caption').value.trim();
+    const pdfFile = document.getElementById('pdfFile').files[0];
+
+    if (!title || !caption || !pdfFile) {
+      alert('All fields are required including a PDF.');
+      return;
+    }
+
+    const username = user.displayName || user.email || 'Anonymous';
+
+    const formData = new FormData();
+    formData.append('title', title);       // ✅ Ensure this matches backend
+    formData.append('caption', caption);
+    formData.append('username', username);
+    formData.append('pdf', pdfFile);       // ✅ Must match 'pdf' in multer.single('pdf')
+    console.log('Uploading post with:', {
+  title, caption, username, pdfFile
+});
+
+
+    try {
+      const res = await fetch('https://bookswebsite-backend.onrender.com/api/posts', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        console.log('Upload successful:', data);
+        uploadStatus.innerText = '✅ Upload successful!';
+        uploadForm.reset();
+      } else {
+        console.error('Error response:', data);
+        uploadStatus.innerText = `❌ Error: ${data.message || 'Unknown error occurred.'}`;
+      }
+    } catch (error) {
+      console.error('Upload failed:', error);
+      uploadStatus.innerText = '❌ Upload failed due to network or server error.';
+    }
+  });
 });
