@@ -17,7 +17,8 @@ app.use('/uploads', express.static('uploads'));
 
 
 // MongoDB connection
-mongoose.connect('mongodb+srv://<username>:<password>@<cluster>.mongodb.net/<dbname>?retryWrites=true&w=majority', {
+require('dotenv').config();
+mongoose.connect('process.env.MONGO_URI', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 }).then(() => console.log('MongoDB connected'))
