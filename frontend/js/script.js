@@ -57,7 +57,9 @@ function displayPosts(posts) {
     postsContainer.appendChild(postDiv);
 
     // Render first page of PDF into book-slider
-    renderPDF(`https://bookswebsite.onrender.com/api/posts${post.pdfUrl}`, sliderId);
+    const fullPdfUrl = post.pdfUrl.startsWith("http") ? post.pdfUrl : `https://bookswebsite.onrender.com${post.pdfUrl}`;
+renderPDF(fullPdfUrl, sliderId);
+
   });
 }
 
